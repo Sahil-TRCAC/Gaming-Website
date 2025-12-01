@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Ultimate Gaming Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0e27;
+            color: #00ff41;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridScroll 20s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff00ff;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            animation: glitchLogo 3s infinite;
+        }
+
+        @keyframes glitchLogo {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, -2px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #00ff41;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            padding-left: 1.5rem;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 5px;
+            padding: 0.5rem;
+            border: 1px solid #00ff41;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: #00ff41;
+            padding: 0.5rem;
+            width: 200px;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(0, 255, 65, 0.6);
+        }
+
+        .search-bar button {
+            background: transparent;
+            border: none;
+            color: #00ff41;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff;
+            margin-bottom: 1rem;
+            animation: neonPulse 2s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
+            margin-top: 2rem;
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.8);
+            padding: 2rem;
+            border-top: 2px solid #ff00ff;
+        }
+
+        .slide-content h2 {
+            color: #ff00ff;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        .slide-content p {
+            color: #00ff41;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 14, 39, 0.7);
+            border: 2px solid #ff00ff;
+            color: #ff00ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 0, 255, 0.3);
+            box-shadow: 0 0 20px #ff00ff;
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-indicator.active {
+            background: #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        /* Categories Section */
+        .categories {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #00ffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #00ffff;
+            text-align: center;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            height: 250px;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff00ff;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.4);
+        }
+
+        .category-card:hover::before {
+            top: 100%;
+        }
+
+        .category-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            border-bottom: 2px solid #00ff41;
+        }
+
+        .category-content {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .category-content h3 {
+            color: #ff00ff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        /* Trending Games */
+        .trending {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff00ff;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.4);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #00ff41;
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            color: #ff00ff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        .game-info {
+            color: #00ff41;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .game-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffcc00;
+        }
+
+        .game-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            color: #00ffff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #0a0e27;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 2px solid #00ff41;
+            padding: 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 0.5rem 0;
+        }
+
+        .footer-section a {
+            color: #00ff41;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            padding-left: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 0, 255, 0.3);
+            border-color: #ff00ff;
+            color: #ff00ff;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            color: #00ffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar input {
+                width: 150px;
+            }
+
+            .carousel {
+                height: 400px;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 96%, 100% {
+                text-shadow: 
+                    2px 2px 0 #ff00ff,
+                    -2px -2px 0 #00ffff;
+            }
+            97% {
+                text-shadow: 
+                    -2px 2px 0 #ff00ff,
+                    2px -2px 0 #00ffff;
+            }
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 65, 0.3);
+            animation: scan 4s linear infinite;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    <div class="scanline"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">GAMEHUB</div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#trending">TRENDING</a></li>
+                <li><a href="#categories">CATEGORIES</a></li>
+                <li><a href="#new">NEW RELEASES</a></li>
+                <li><a href="#deals">DEALS</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="Search games...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 class="glitch">EXPERIENCE THE FUTURE OF GAMING</h1>
+        
+        <!-- Carousel -->
+        <div class="carousel">
+            <div class="carousel-slides">
+                <div class="carousel-slide">
+                    <a href="Game pages/gta6.html">
+                        <img src="https://i.ytimg.com/vi/z9zGV59xj54/maxresdefault.jpg" alt="Cyberpunk Game">
+                    </a>
+                    <div class="slide-content">
+                        <h2>GTA6 Pre Release Version</h2>
+                        <p>Explore the dangerous world of Night City in this expansion to the hit RPG</p>
+                        <a href="Game pages/gta6.html"><button class="buy-btn">BUY NOW</button></a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&h=600&fit=crop" alt="Racing Game">
+                    <a href="Game pages/needforspeed.html">
+
+                        <div class="slide-content">
+                            <h2>NEED FOR SPEED: HYPERDRIVE</h2>
+                            <p>The ultimate racing experience with hyper-realistic graphics and physics</p>
+                            <button class="buy-btn">Download Now</button>
+                        </div>
+                    </div>
+                </a>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=1200&h=600&fit=crop" alt="Fantasy Game">
+                    <a href="Game pages/eldenring.html">
+
+                        <div class="slide-content">
+                            <h2>ELDER SCROLLS VI: VALENWOOD</h2>
+                            <p>Journey through the mystical forests of Valenwood in this epic fantasy adventure</p>
+                            <button class="buy-btn">Download Now</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <button class="carousel-btn carousel-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn carousel-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-indicators">
+                <div class="carousel-indicator active"></div>
+                <div class="carousel-indicator"></div>
+                <div class="carousel-indicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">GAME CATEGORIES</h2>
+        <div class="categories-grid">
+            <a href="Game pages/action.html">
+
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=400&fit=crop" alt="Action Games" class="category-image">
+                    <div class="category-content">
+                        <h3>ACTION</h3>
+                        <p>High-intensity combat and adventure</p>
+                    </div>
+                </div>
+            </a>
+            
+            
+            <a href="Game pages/Racing.html">
+            <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="Racing Games" class="category-image">
+                    <div class="category-content">
+                        <h3>RACING</h3>
+                        <p>High-speed adrenaline and competition</p>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/fantasy.html">
+            <div class="category-card">
+
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=600&h=400&fit=crop" alt="Fantasy Games" class="category-image">
+                    <div class="category-content">
+                        <h3>FANTASY</h3>
+                        <p>Magical worlds and epic quests</p>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/shootergames.html">
+            <div class="category-card">
+
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=600&h=400&fit=crop" alt="Shooter Games" class="category-image">
+                    <div class="category-content">
+                        <h3>SHOOTER</h3>
+                        <p>First-person and third-person combat</p>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/sports.html">
+            <div class="category-card">
+
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&h=400&fit=crop" alt="Sports Games" class="category-image">
+                    <div class="category-content">
+                        <h3>SPORTS</h3>
+                        <p>Realistic athletic competition</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- Trending Games -->
+    <section class="trending" id="trending">
+        <h2 class="section-title">TRENDING GAMES</h2>
+        <div class="games-grid">
+            <a href="Game pages/cyberpunk2077.html" class="game-card">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop" alt="Cyberpunk 2077" class="game-image">
+                <div class="game-content">
+                    <h3 class="game-title">CYBERPUNK 2077</h3>
+                    <p class="game-info">Open-world RPG set in Night City</p>
+                    <div class="game-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span>4.5/5</span>
+                    </div>
+                    <div class="game-price">
+                       
+                        <button class="buy-btn" type="button">Download Now</button>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/needforspeed.html" class="game-card">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="Need for Speed" class="game-image">
+                <div class="game-content">
+                    <h3 class="game-title">NEED FOR SPEED</h3>
+                    <p class="game-info">High-octane street racing</p>
+                    <div class="game-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span>4.0/5</span>
+                    </div>
+                    <div class="game-price">
+                      
+                        <button class="buy-btn" type="button">Download Now</button>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/fantasy.html" class="game-card">
+                <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=600&h=400&fit=crop" alt="Elder Scrolls" class="game-image">
+                <div class="game-content">
+                    <h3 class="game-title">ELDER SCROLLS VI</h3>
+                    <p class="game-info">Epic fantasy adventure</p>
+                    <div class="game-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span>5.0/5</span>
+                    </div>
+                    <div class="game-price">
+                       
+                        <button class="buy-btn" type="button">Download Now</button>
+                    </div>
+                </div>
+            </a>
+            <a href="Game pages/callofduty.html" class="game-card">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=600&h=400&fit=crop" alt="Call of Duty" class="game-image">
+                <div class="game-content">
+                    <h3 class="game-title">CALL OF DUTY</h3>
+                    <p class="game-info">Modern warfare FPS</p>
+                    <div class="game-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span>4.5/5</span>
+                    </div>
+                    <div class="game-price">
+                        
+                        <button class="buy-btn" type="button">Download Now</button>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>QUICK LINKS</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#trending">Trending</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#new">New Releases</a></li>
+                    <li><a href="#deals">Deals</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SUPPORT</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">System Requirements</a></li>
+                    <li><a href="#">Download Client</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>COMMUNITY</h3>
+                <ul>
+                    <li><a href="#">Forums</a></li>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GAMEHUB // ALL RIGHTS RESERVED</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #ff00ff;">
+                [ CONNECTED // SERVER STATUS: ONLINE // WELCOME TO THE FUTURE OF GAMING ]
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            const carouselSlides = document.querySelector('.carousel-slides');
+            carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        document.querySelector('.carousel-next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        document.querySelector('.carousel-prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        // Auto-advance carousel
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+
+        // Add click functionality to indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+            });
+        });
+
+        // Add floating particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = '#00ff41';
+            particle.style.boxShadow = '0 0 5px #00ff41';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = '-10px';
+            particle.style.opacity = Math.random();
+            particle.style.zIndex = '-1';
+            particle.style.pointerEvents = 'none';
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3 + 2;
+            particle.animate([
+                { transform: 'translateY(0)' },
+                { transform: `translateY(${window.innerHeight}px)` }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            }).onfinish = () => particle.remove();
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 200);
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

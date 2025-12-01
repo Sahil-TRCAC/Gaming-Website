@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON ARCADE | Cyberpunk Gaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Cyberpunk Color Scheme & Base Styles */
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff00;
+            --dark-bg: #0a0a16;
+            --darker-bg: #050510;
+            --card-bg: rgba(20, 20, 40, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8d0;
+            --glow-pink: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+            --glow-blue: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+            --glow-purple: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 20%),
+                linear-gradient(to bottom, var(--darker-bg), var(--dark-bg));
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+        }
+
+        .pink-glow { color: var(--neon-pink); text-shadow: var(--glow-pink); }
+        .blue-glow { color: var(--neon-blue); text-shadow: var(--glow-blue); }
+        .purple-glow { color: var(--neon-purple); text-shadow: var(--glow-purple); }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(10, 10, 22, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--neon-pink);
+            text-shadow: var(--glow-pink);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-login:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: var(--glow-blue);
+        }
+
+        .btn-signup {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: var(--text-primary);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .btn-signup:hover {
+            box-shadow: var(--glow-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Carousel */
+        .hero {
+            margin-top: 20px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 500px;
+            box-shadow: 0 0 30px rgba(157, 0, 255, 0.4);
+            border: 1px solid var(--neon-purple);
+        }
+
+        .carousel {
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-content {
+            max-width: 600px;
+            background: rgba(10, 10, 22, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .carousel-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .carousel-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-play {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: var(--text-primary);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-play:hover {
+            box-shadow: var(--glow-pink);
+            transform: translateY(-3px);
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .indicator.active {
+            background: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        /* Categories Section */
+        .categories {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(20, 20, 40, 0.7);
+            color: var(--text-secondary);
+            border: 1px solid var(--neon-purple);
+            padding: 10px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--neon-purple);
+            color: var(--text-primary);
+            box-shadow: var(--glow-purple);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), var(--glow-blue);
+        }
+
+        .game-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(transparent, var(--card-bg));
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--neon-blue);
+        }
+
+        .game-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-rating {
+            color: gold;
+        }
+
+        .game-price {
+            font-weight: bold;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .game-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--neon-purple);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 16, 0.95);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--neon-purple);
+            box-shadow: 0 -5px 20px rgba(157, 0, 255, 0.3);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--neon-blue);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .social-links a:hover {
+            background: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+            transform: translateY(-3px);
+        }
+
+        .newsletter p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--neon-purple);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .newsletter-form button {
+            background: var(--neon-purple);
+            color: var(--text-primary);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid var(--neon-purple);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Cyberpunk Grid Overlay */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(10, 10, 22, 0.9) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 10, 22, 0.9) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .carousel-content {
+                padding: 20px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .carousel-slide {
+                padding: 0 20px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cyberpunk Grid Background -->
+    <div class="cyber-grid"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="logo-text">NEON ARCADE</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="neon-text">Home</a></li>
+                        <li><a href="#">Games</a></li>
+                        <li><a href="#">Cyber Store</a></li>
+                        <li><a href="#">Leaderboards</a></li>
+                        <li><a href="#">Neo-News</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">Neo-Login</button>
+                    <button class="btn btn-signup">Jack In</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="carousel-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');">
+                <div class="carousel-content">
+                    <h2>Cyberpunk 2077: Phantom Liberty</h2>
+                    <p>Experience the next chapter in the Cyberpunk saga with new missions, characters, and locations in Night City.</p>
+                    <a href="#" class="btn btn-play"><i class="fas fa-play"></i> Jack In Now</a>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');">
+                <div class="carousel-content">
+                    <h2>Neon Racer: Tokyo Drift</h2>
+                    <p>Race through the neon-lit streets of future Tokyo in this high-octane cyberpunk racing experience.</p>
+                    <a href="#" class="btn btn-play"><i class="fas fa-play"></i> Jack In Now</a>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');">
+                <div class="carousel-content">
+                    <h2>Synthwave: Digital Dreams</h2>
+                    <p>Immerse yourself in a retro-futuristic world where synthwave beats and cyberpunk aesthetics collide.</p>
+                    <a href="#" class="btn btn-play"><i class="fas fa-play"></i> Jack In Now</a>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title neon-text">Cyber Games Matrix</h2>
+            <div class="category-filters">
+                <button class="filter-btn active">All Games</button>
+                <button class="filter-btn">Cyberpunk</button>
+                <button class="filter-btn">Sci-Fi</button>
+                <button class="filter-btn">RPG</button>
+                <button class="filter-btn">Action</button>
+                <button class="filter-btn">VR</button>
+            </div>
+            <div class="games-grid">
+                <!-- Game 1 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">Cyberpunk</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Neon Nexus</h3>
+                        <p class="game-description">Hack your way through corporate networks in this cyber-thriller adventure.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="game-price">₵49.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 2 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">RPG</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Synth Souls</h3>
+                        <p class="game-description">A dark cyber-fantasy RPG where humanity and machinery collide.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="game-price">₵59.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 3 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">Action</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Blade Runner 2099</h3>
+                        <p class="game-description">Hunt replicants in a rain-drenched dystopian Los Angeles.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="game-price">₵69.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 4 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">Strategy</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Cyber Empires</h3>
+                        <p class="game-description">Build your corporate empire in a world dominated by megacorps.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="game-price">₵49.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 5 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1614632537197-38a17061c2bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">VR</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Neon VR</h3>
+                        <p class="game-description">Fully immersive VR experience in a sprawling cyberpunk metropolis.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="game-price">₵59.99</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 6 -->
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="game-category">Action</div>
+                    <div class="game-info">
+                        <h3 class="game-title neon-text">Ghostwire: Neo-Tokyo</h3>
+                        <p class="game-description">Use psychic abilities to battle supernatural threats in future Tokyo.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="game-price">₵69.99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Neon Arcade</h3>
+                    <p>Neon Arcade is the premier destination for cyberpunk gaming experiences. Jack into our matrix for the latest in futuristic entertainment.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">All Games</a></li>
+                        <li><a href="#">New Releases</a></li>
+                        <li><a href="#">Top Sellers</a></li>
+                        <li><a href="#">Upcoming Games</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">System Requirements</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Neo-Newsletter</h3>
+                    <div class="newsletter">
+                        <p>Subscribe to our newsletter to receive updates on new games, special offers, and cyberpunk news.</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2077 Neon Arcade. All rights reserved. All trademarks are property of their respective owners in the cyber-future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                
+                slides[currentSlide].classList.add('active');
+                indicators[currentSlide].classList.add('active');
+            }
+            
+            // Auto advance slides
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+            
+            // Add click events to indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Category filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // In a real implementation, you would filter the games here
+                    // For this demo, we'll just log the category
+                    console.log(`Filtering by: ${button.textContent}`);
+                });
+            });
+            
+            // Add cyberpunk glitch effect to title randomly
+            const title = document.querySelector('.logo-text');
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    title.style.textShadow = '0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff';
+                    setTimeout(() => {
+                        title.style.textShadow = '0 0 10px rgba(255, 0, 255, 0.5)';
+                    }, 100);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

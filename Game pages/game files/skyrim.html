@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elder Scrolls V: Skyrim | Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cinzel', serif;
+        }
+
+        :root {
+            --neon-blue: #00a2ff;
+            --neon-ice: #00ffff;
+            --neon-purple: #9d00ff;
+            --neon-red: #ff003c;
+            --dark-bg: #0a0a12;
+            --darker-bg: #050508;
+            --text-color: #f0f0f0;
+            --accent-color: #00a2ff;
+            --grid-color: rgba(0, 162, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-blue);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.5);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 162, 255, 0.5);
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+            color: var(--darker-bg);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .nav-cta:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neon-blue);
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 18, 0.85), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 162, 255, 0.7);
+            line-height: 1.1;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--neon-purple);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+            color: var(--darker-bg);
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 25px rgba(0, 162, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 35px rgba(0, 162, 255, 0.9);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .features {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 28, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 162, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 162, 255, 0.3);
+            border-color: var(--neon-blue);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .screenshots {
+            padding: 80px 5%;
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(0, 162, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 162, 255, 0.3);
+        }
+
+        .screenshots-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-card {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 162, 255, 0.3);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 162, 255, 0.3);
+        }
+
+        .screenshot-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-card:hover .screenshot-overlay {
+            transform: translateY(0);
+        }
+
+        .editions {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .editions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .edition-card {
+            background: rgba(20, 20, 28, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 162, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .edition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-ice));
+        }
+
+        .edition-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 162, 255, 0.3);
+            border-color: var(--neon-blue);
+        }
+
+        .edition-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+
+        .edition-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .edition-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--neon-purple);
+        }
+
+        .edition-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .edition-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .edition-features li:last-child {
+            border-bottom: none;
+        }
+
+        .edition-features li::before {
+            content: '❄️';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+        }
+
+        .edition-btn {
+            display: inline-block;
+            background: rgba(0, 162, 255, 0.2);
+            color: var(--neon-blue);
+            padding: 12px 30px;
+            border: 1px solid var(--neon-blue);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .edition-btn:hover {
+            background: var(--neon-blue);
+            color: var(--darker-bg);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .system-requirements {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .requirements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+        }
+
+        .requirement-box {
+            background: rgba(30, 30, 38, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(157, 0, 255, 0.3);
+        }
+
+        .requirement-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--neon-purple);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .requirement-list {
+            list-style: none;
+        }
+
+        .requirement-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .requirement-list li:last-child {
+            border-bottom: none;
+        }
+
+        .requirement-name {
+            color: #d0d0d0;
+        }
+
+        .requirement-value {
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 50px 5% 20px;
+            border-top: 1px solid var(--neon-blue);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--neon-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 162, 255, 0.1);
+            border-radius: 50%;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-blue);
+            color: var(--darker-bg);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-purple);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: var(--neon-blue);
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .requirements-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .download-btn {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card, .edition-card {
+                padding: 20px;
+            }
+            
+            .screenshots-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .requirements-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .requirement-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-text">THE ELDER SCROLLS V</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Lore</a></li>
+                    <li><a href="#">Factions</a></li>
+                    <li><a href="#">Mods</a></li>
+                    <li><a href="fantasy.html" download class="nav-cta">Download Now</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero">
+            <div class="particles" id="particles"></div>
+            <div class="hero-content">
+                <h1 class="glitch" data-text="SKYRIM">SKYRIM</h1>
+                <h2>SPECIAL EDITION</h2>
+                <p>The legendary open-world fantasy adventure where you determine your own destiny. Winner of more than 200 Game of the Year Awards.</p>
+                <a href="fantasy.html" download class="download-btn">
+                    <i class="fas fa-download"></i> Download Now
+                </a>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 class="section-title">Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Epic Fantasy World</h3>
+                    <p>Explore the frozen tundra and majestic mountains of Skyrim, a land of ancient Nordic legends.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Dragon Slaying</h3>
+                    <p>Face legendary dragons in epic battles and absorb their souls to unlock ancient powers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3>Endless Adventure</h3>
+                    <p>With hundreds of locations, quests, and characters, your adventure is limited only by your imagination.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots">
+            <h2 class="section-title">Screenshots</h2>
+            <div class="screenshots-container">
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80" alt="Skyrim Landscape">
+                    <div class="screenshot-overlay">
+                        <h3>Frozen Tundra</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Dragon Battle">
+                    <div class="screenshot-overlay">
+                        <h3>Dragon Combat</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Ancient Ruins">
+                    <div class="screenshot-overlay">
+                        <h3>Ancient Ruins</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Magic System">
+                    <div class="screenshot-overlay">
+                        <h3>Powerful Magic</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="editions">
+            <h2 class="section-title">Game Editions</h2>
+            <div class="editions-grid">
+                <div class="edition-card">
+                    <div class="edition-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Standard Edition</h3>
+                    <div class="edition-price">$39.99</div>
+                    <ul class="edition-features">
+                        <li>Base Game</li>
+                        <li>All Official DLC</li>
+                        <li>Creation Club Content</li>
+                    </ul>
+                    <a href="#" class="edition-btn">Buy Now</a>
+                </div>
+                <div class="edition-card">
+                    <div class="edition-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Special Edition</h3>
+                    <div class="edition-price">$59.99</div>
+                    <ul class="edition-features">
+                        <li>Remastered Graphics</li>
+                        <li>All DLC Included</li>
+                        <li>Mod Support</li>
+                        <li>64-bit Engine</li>
+                    </ul>
+                    <a href="#" class="edition-btn">Buy Now</a>
+                </div>
+                <div class="edition-card">
+                    <div class="edition-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Anniversary Edition</h3>
+                    <div class="edition-price">$79.99</div>
+                    <ul class="edition-features">
+                        <li>Special Edition + All Content</li>
+                        <li>500+ Creation Club Elements</li>
+                        <li>Survival Mode</li>
+                        <li>Fishing System</li>
+                        <li>Rare Curios</li>
+                    </ul>
+                    <a href="#" class="edition-btn">Buy Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="system-requirements">
+            <h2 class="section-title">System Requirements</h2>
+            <div class="requirements-container">
+                <div class="requirement-box">
+                    <h3>Minimum Requirements</h3>
+                    <ul class="requirement-list">
+                        <li>
+                            <span class="requirement-name">OS</span>
+                            <span class="requirement-value">Windows 7/8.1/10 (64-bit)</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Processor</span>
+                            <span class="requirement-value">Intel i5-750 / AMD Phenom II X4-945</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Memory</span>
+                            <span class="requirement-value">8 GB RAM</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Graphics</span>
+                            <span class="requirement-value">NVIDIA GTX 470 1GB / AMD HD 7870 2GB</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Storage</span>
+                            <span class="requirement-value">12 GB available space</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="requirement-box">
+                    <h3>Recommended Requirements</h3>
+                    <ul class="requirement-list">
+                        <li>
+                            <span class="requirement-name">OS</span>
+                            <span class="requirement-value">Windows 10/11 (64-bit)</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Processor</span>
+                            <span class="requirement-value">Intel i5-2400 / AMD FX-8320</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Memory</span>
+                            <span class="requirement-value">8 GB RAM</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Graphics</span>
+                            <span class="requirement-value">NVIDIA GTX 780 3GB

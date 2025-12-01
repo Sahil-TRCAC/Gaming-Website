@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk 2077 | Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00c8;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a14;
+            --darker-bg: #050508;
+            --text-color: #e0e0ff;
+            --accent-color: #ff004c;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(5, 5, 8, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-blue);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            color: var(--darker-bg);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 20, 0.8), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1489599809505-fbe6c7a8156f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #b0b0ff;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            color: var(--darker-bg);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .features {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        .screenshots {
+            padding: 80px 5%;
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .screenshots-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-card {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .screenshot-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-card:hover .screenshot-overlay {
+            transform: translateY(0);
+        }
+
+        .system-requirements {
+            padding: 80px 5%;
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .requirements-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+        }
+
+        .requirement-box {
+            background: rgba(30, 30, 45, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(255, 0, 200, 0.3);
+        }
+
+        .requirement-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--neon-pink);
+            text-align: center;
+        }
+
+        .requirement-list {
+            list-style: none;
+        }
+
+        .requirement-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .requirement-list li:last-child {
+            border-bottom: none;
+        }
+
+        .requirement-name {
+            color: #b0b0ff;
+        }
+
+        .requirement-value {
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        .characters {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .character-card {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        .character-img {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .character-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .character-card:hover .character-img img {
+            transform: scale(1.1);
+        }
+
+        .character-info {
+            padding: 20px;
+        }
+
+        .character-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--neon-blue);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 50px 5% 20px;
+            border-top: 1px solid var(--neon-blue);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--neon-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b0b0ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-blue);
+            color: var(--darker-bg);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #8888cc;
+            font-size: 0.9rem;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .requirements-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .download-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .screenshots-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-text">CYBERPUNK</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Game Info</a></li>
+                    <li><a href="#">Screenshots</a></li>
+                    <li><a href="#">Characters</a></li>
+                    <li><a href="#" class="nav-cta">Download Now</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="CYBERPUNK 2077">CYBERPUNK 2077</h1>
+                <p>Enter the vast metropolis of Night City, a megacity obsessed with power, glamour, and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality.</p>
+                <a href="#" class="download-btn">
+                    <i class="fas fa-download"></i> Download Now
+                </a>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 class="section-title">Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Open World</h3>
+                    <p>Explore the vast and dangerous Night City, a megalopolis obsessed with power, glamour, and body modification.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Character Customization</h3>
+                    <p>Customize your character's cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-fighter-jet"></i>
+                    </div>
+                    <h3>Action-Packed</h3>
+                    <p>Experience life in the dark future of 2077 with breathtaking visuals, intense gunplay, and deep RPG mechanics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots">
+            <h2 class="section-title">Screenshots</h2>
+            <div class="screenshots-container">
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Cyberpunk Cityscape">
+                    <div class="screenshot-overlay">
+                        <h3>Night City</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Cyberpunk Character">
+                    <div class="screenshot-overlay">
+                        <h3>Character Customization</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80" alt="Cyberpunk Action">
+                    <div class="screenshot-overlay">
+                        <h3>Intense Action</h3>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Cyberpunk Vehicles">
+                    <div class="screenshot-overlay">
+                        <h3>Futuristic Vehicles</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="characters">
+            <h2 class="section-title">Key Characters</h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-img">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="V - Main Character">
+                    </div>
+                    <div class="character-info">
+                        <h3>V</h3>
+                        <p>The player character, a mercenary in Night City seeking immortality.</p>
+                    </div>
+                </div>
+                <div class="character-card">
+                    <div class="character-img">
+                        <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2052&q=80" alt="Johnny Silverhand">
+                    </div>
+                    <div class="character-info">
+                        <h3>Johnny Silverhand</h3>
+                        <p>A legendary rockerboy and terrorist, now a digital ghost.</p>
+                    </div>
+                </div>
+                <div class="character-card">
+                    <div class="character-img">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80" alt="Judy Alvarez">
+                    </div>
+                    <div class="character-info">
+                        <h3>Judy Alvarez</h3>
+                        <p>A talented braindance technician and member of the Moxes.</p>
+                    </div>
+                </div>
+                <div class="character-card">
+                    <div class="character-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80" alt="River Ward">
+                    </div>
+                    <div class="character-info">
+                        <h3>River Ward</h3>
+                        <p>A NCPD detective with a strong sense of justice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="system-requirements">
+            <h2 class="section-title">System Requirements</h2>
+            <div class="requirements-container">
+                <div class="requirement-box">
+                    <h3>Minimum Requirements</h3>
+                    <ul class="requirement-list">
+                        <li>
+                            <span class="requirement-name">OS</span>
+                            <span class="requirement-value">Windows 10</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Processor</span>
+                            <span class="requirement-value">Intel Core i5-3570K or AMD FX-8310</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Memory</span>
+                            <span class="requirement-value">8 GB RAM</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Graphics</span>
+                            <span class="requirement-value">NVIDIA GeForce GTX 780 or AMD Radeon RX 470</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Storage</span>
+                            <span class="requirement-value">70 GB available space</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="requirement-box">
+                    <h3>Recommended Requirements</h3>
+                    <ul class="requirement-list">
+                        <li>
+                            <span class="requirement-name">OS</span>
+                            <span class="requirement-value">Windows 10</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Processor</span>
+                            <span class="requirement-value">Intel Core i7-4790 or AMD Ryzen 3 3200G</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Memory</span>
+                            <span class="requirement-value">12 GB RAM</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Graphics</span>
+                            <span class="requirement-value">NVIDIA GeForce GTX 1060 or AMD Radeon R9 Fury</span>
+                        </li>
+                        <li>
+                            <span class="requirement-name">Storage</span>
+                            <span class="requirement-value">70 GB available space (SSD recommended)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Cyberpunk 2077</h3>
+                <p>Cyberpunk 2077 is an open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Game Info</a></li>
+                    <li><a href="#">Screenshots</a></li>
+                    <li><a href="#">Characters</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">EULA</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 CD PROJEKT RED. CYBERPUNK 2077 and CD PROJEKT RED are trademarks of CD PROJEKT S.A.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('nav ul');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Glitch effect enhancement
+        const glitchElements = document.querySelectorAll('.glitch');
+        
+        glitchElements.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(5, 5, 8, 0.95)';
+                header.style.boxShadow = '0 0 20px rgba(0, 243, 255, 0.4)';
+            } else {
+                header.style.backgroundColor = 'rgba(5, 5, 8, 0.9)';
+                header.style.boxShadow = '0 0 15px rgba(0, 243, 255, 0.3)';
+            }
+        });
+    </script>
+</body>
+</html>

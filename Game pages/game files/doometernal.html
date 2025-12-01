@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOOM ETERNAL - PC Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0d0208;
+            color: #ff006e;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a0a0f 0%, #0d0208 50%, #000000 100%);
+        }
+
+        /* Hellfire particles */
+        .fire-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 2, 8, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #ff006e;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.5), 0 5px 0 #8b0000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff006e;
+            text-shadow: 
+                0 0 10px #ff006e,
+                0 0 20px #ff006e,
+                0 0 30px #ff006e,
+                0 0 40px #8b0000;
+            animation: demonPulse 2s infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes demonPulse {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px #ff006e,
+                    0 0 20px #ff006e,
+                    0 0 30px #ff006e,
+                    0 0 40px #8b0000;
+            }
+            50% { 
+                text-shadow: 
+                    0 0 20px #ff006e,
+                    0 0 30px #ff006e,
+                    0 0 40px #ff006e,
+                    0 0 50px #8b0000,
+                    0 0 60px #8b0000;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ff8500;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+        }
+
+        .nav-links a::before {
+            content: '▶';
+            position: absolute;
+            left: -10px;
+            opacity: 0;
+            transition: all 0.3s;
+            color: #ff006e;
+        }
+
+        .nav-links a:hover {
+            color: #ff006e;
+            border: 2px solid #ff006e;
+            text-shadow: 0 0 15px #ff006e;
+            transform: skewX(-5deg);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+            left: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: #ff006e;
+            text-shadow: 
+                0 0 20px #ff006e,
+                0 0 40px #ff006e,
+                0 0 60px #ff006e,
+                0 0 80px #8b0000,
+                5px 5px 0 #8b0000;
+            margin-bottom: 1rem;
+            animation: hellfire 3s ease-in-out infinite;
+            letter-spacing: 5px;
+            transform: skewY(-2deg);
+        }
+
+        @keyframes hellfire {
+            0%, 100% { 
+                transform: skewY(-2deg) scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: skewY(-2deg) scale(1.02);
+                filter: brightness(1.2);
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #ff8500;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #ff8500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero-image-container {
+            margin: 2rem 0;
+            position: relative;
+            border: 3px solid #ff006e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 110, 0.6),
+                inset 0 0 30px rgba(139, 0, 0, 0.3);
+            transform: perspective(1000px) rotateX(2deg);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            filter: brightness(0.9) contrast(1.2);
+            transition: all 0.5s;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+            filter: brightness(1) contrast(1.3);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(13, 2, 8, 0.95), transparent);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s;
+        }
+
+        .hero-image-container:hover .hero-overlay {
+            transform: translateY(0);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgba(139, 0, 0, 0.2);
+            border: 2px solid #ff006e;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #ff006e;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff006e;
+        }
+
+        .stat-label {
+            color: #ff8500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Download Section */
+        .download-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #ff006e;
+            text-shadow: 0 0 30px #ff006e;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .download-card {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(13, 2, 8, 0.8));
+            border: 3px solid #ff006e;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 110, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: cardShine 3s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .download-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #ff8500;
+            box-shadow: 
+                0 15px 50px rgba(255, 0, 110, 0.6),
+                0 0 50px rgba(255, 133, 0, 0.4);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+            filter: brightness(0.8) contrast(1.2);
+        }
+
+        .download-card:hover .card-image {
+            transform: scale(1.1);
+            filter: brightness(1) contrast(1.3);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 0, 110, 0.95);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .card-body {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-header {
+            font-size: 1.8rem;
+            color: #ff006e;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px #ff006e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card-content {
+            color: #ff8500;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .requirements {
+            list-style: none;
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #ff006e;
+        }
+
+        .requirements li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255, 0, 110, 0.2);
+            color: #ff8500;
+        }
+
+        .requirements li:last-child {
+            border-bottom: none;
+        }
+
+        .requirements li::before {
+            content: '⚡ ';
+            color: #ff006e;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Download Button */
+        .download-btn {
+            background: linear-gradient(135deg, #ff006e, #8b0000);
+            color: #fff;
+            border: 2px solid #ff006e;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 110, 0.5),
+                inset 0 0 20px rgba(139, 0, 0, 0.3);
+            width: 100%;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 50px rgba(255, 0, 110, 0.8),
+                inset 0 0 30px rgba(255, 133, 0, 0.5);
+            border-color: #ff8500;
+        }
+
+        .download-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Screenshot Gallery */
+        .gallery-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 3px solid #ff006e;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.4);
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .gallery-item:hover {
+            border-color: #ff8500;
+            box-shadow: 0 0 50px rgba(255, 133, 0, 0.6);
+            transform: translateY(-10px);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s;
+            filter: brightness(0.8) contrast(1.2);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.15);
+            filter: brightness(1) contrast(1.4);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(13, 2, 8, 0.95), transparent);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            color: #ff006e;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #ff006e;
+            text-transform: uppercase;
+        }
+
+        /* Features Section */
+        .features-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(13, 2, 8, 0.5));
+            border: 2px solid #ff006e;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff006e;
+            border-left: 5px solid #ff8500;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(255, 0, 110, 0.2), transparent);
+            transition: height 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            border-left-width: 10px;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .feature-item:hover::before {
+            height: 100%;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h3 {
+            color: #ff006e;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff006e;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+
+        .feature-item p {
+            color: #ff8500;
+            line-height: 1.6;
+        }
+
+        /* System Requirements */
+        .specs-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .spec-card {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(13, 2, 8, 0.8));
+            border: 3px solid #ff006e;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+            transition: all 0.3s;
+        }
+
+        .spec-card:hover {
+            border-color: #ff8500;
+            box-shadow: 0 0 50px rgba(255, 133, 0, 0.5);
+            transform: scale(1.02);
+        }
+
+        .spec-card h3 {
+            color: #ff006e;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px #ff006e;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(13, 2, 8, 0.98);
+            border-top: 3px solid #ff006e;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+            box-shadow: 0 -5px 0 #8b0000, 0 0 40px rgba(255, 0, 110, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ff006e;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px #ff006e;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 0.8rem 0;
+        }
+
+        .footer-section a {
+            color: #ff8500;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-section a:hover {
+            color: #ff006e;
+            text-shadow: 0 0 15px #ff006e;
+            padding-left: 15px;
+        }
+
+        .footer-section a::before {
+            content: '▶ ';
+            opacity: 0;
+            margin-right: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .footer-section a:hover::before {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 0, 110, 0.3);
+            color: #ff8500;
+        }
+
+        .footer-bottom p {
+            margin: 0.5rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ff006e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff006e;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            background: rgba(139, 0, 0, 0.3);
+        }
+
+        .social-links a:hover {
+            background: #ff006e;
+            color: #fff;
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .download-grid,
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+        }
+
+        /* Demon Eye Cursor Effect */
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff006e, transparent);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.7;
+            filter: blur(10px);
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="fire-particles" id="fireParticles"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">DOOM ETERNAL</div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#download">DOWNLOAD</a></li>
+                <li><a href="#features">FEATURES</a></li>
+                <li><a href="#gallery">GALLERY</a></li>
+                <li><a href="#specs">SPECS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>DOOM ETERNAL</h1>
+            <p>⚡ RIP AND TEAR UNTIL IT IS DONE ⚡</p>
+            <p style="font-size: 1rem; color: #ff006e;">PC EDITION // ULTRA VIOLENCE // DEMON SLAYER MODE</p>
+        </div>
+        
+        <div class="hero-image-container">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1400&h=600&fit=crop&q=80" alt="DOOM Eternal Hellscape" class="hero-image">
+            <div class="hero-overlay">
+                <h3 style="color: #ff006e; font-size: 1.5rem; margin-bottom: 0.5rem;">HELL ON EARTH</h3>
+                <p style="color: #ff8500;">Experience the ultimate combination of speed and power as you battle demons across dimensions</p>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">120 GB</div>
+                <div class="stat-label">Download Size</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4K HDR</div>
+                <div class="stat-label">Resolution</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">144 FPS</div>
+                <div class="stat-label">Max Frame Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">ULTRA</div>
+                <div class="stat-label">Violence Mode</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+        <h2 class="section-title">[ DOWNLOAD VERSIONS ]</h2>
+        <div class="download-grid">
+            <div class="download-card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600&h=400&fit=crop&q=80" alt="Standard Edition" class="card-image">
+                    <div class="card-badge">POPULAR</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-header">Standard Edition</div>
+                    <div class="card-content">
+                        <p>Base game with full campaign and multiplayer modes</p>
+                        <ul class="requirements">
+                            <li>Size: 120 GB</li>
+                            <li>Version: 6.66</li>
+                            <li>Language: Multi-20</li>
+                            <li>Format: ISO + Crack</li>
+                            <li>Includes: Base Game</li>
+                        </ul>
+                    </div>
+                    <a href="shootergames.html"download>
+
+                        <button class="download-btn" onclick="initiateDownload('Standard')">DOWNLOAD NOW</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="download-card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?w=600&h=400&fit=crop&q=80" alt="Deluxe Edition" class="card-image">
+                    <div class="card-badge" style="background: #ff8500;">DELUXE</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-header">Deluxe Edition</div>
+                    <div class="card-content">
+                        <p>Includes Year One Pass and exclusive content</p>
+                        <ul class="requirements">
+                            <li>Size: 145 GB</li>
+                            <li>Version: 6.66</li>
+                            <li>Bonus: Year One Pass</li>
+                            <li>Format: ISO + Crack</li>
+                            <li>Includes: DLC Pack 1</li>
+                        </ul>
+                    </div>
+                    <a href="shootergames.html" download>
+
+                        <button class="download-btn" onclick="initiateDownload('Deluxe')">DOWNLOAD NOW</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="download-card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=600&h=400&fit=crop&q=80" alt="Ultimate Edition" class="card-image">
+                    <div class="card-badge" style="background: #8b0000;">ULTIMATE</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-header">Ultimate Edition</div>
+                    <div class="card-content">
+                        <p>Complete package with all DLCs and expansions</p>
+                        <ul class="requirements">
+                            <li>Size: 180 GB</li>
+                            <li>Version: 6.66</li>
+                            <li>All DLCs: Ancient Gods 1&2</li>
+                            <li>Format: ISO + Crack</li>
+                            <li>Includes: Everything</li>
+                        </ul>
+                    </div>
+                    <a href="shootergames.html" download>
+
+                        <button class="download-btn" onclick="initiateDownload('Ultimate')">DOWNLOAD NOW</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot Gallery -->
+    <section class="gallery-section" id="gallery">
+        <h2 class="section-title">[ GAMEPLAY GALLERY ]</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&h=400&fit=crop&q=80" alt="Hell Landscape" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">HELL UNLEASHED</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1563207153-f403bf289096?w=600&h=400&fit=crop&q=80" alt="Combat Arena" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">INTENSE COMBAT</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&h=400&fit=crop&q=80" alt="Demon Battle" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">GLORY KILLS</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=600&h=400&fit=crop&q=80" alt="Weapon Arsenal" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">ARSENAL</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop&q=80" alt="Boss Fight" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BOSS BATTLES</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=600&h=400&fit=crop&q=80" alt="Fortress" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">FORTRESS OF DOOM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">[ GAME FEATURES ]</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🔥</div>
+                <h3>Brutal Combat</h3>
+                <p>Experience visceral, fast-paced demon-slaying action with devastating weapons and brutal glory kills</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Speed</h3>
+                <p>Move at breakneck speeds with enhanced mobility including dashes, double jumps, and climbing</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3>Strategic Combat</h3>
+                <p>Master the push-forward combat loop with resource management and tactical demon prioritization</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <h3>Epic Campaign</h3>
+                <p>Battle across dimensions from Earth to Hell in an unforgettable single-player story campaign</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎮</div>
+                <h3>Battlemode</h3>
+                <p>Engage in asymmetric multiplayer where one Slayer faces two player-controlled demons</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔧</div>
+                <h3>Customization</h3>
+                <p>Unlock and upgrade weapons, abilities, and cosmetics to personalize your Slayer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Requirements -->
+    <section class="specs-section" id="specs">
+        <h2 class="section-title">[ SYSTEM REQUIREMENTS ]</h2>
+        <div class="specs-grid">
+            <div class="spec-card">
+                <h3>⚙️ MINIMUM SPECS</h3>
+                <ul class="requirements">
+                    <li>OS: Windows 10 64-bit</li>
+                    <li>CPU: Intel Core i5-3570 / AMD Ryzen 3 1200</li>
+                    <li>RAM: 8 GB</li>
+                    <li>GPU: NVIDIA GTX 1050 Ti (4GB) / AMD Radeon RX 560 (4GB)</li>
+                    <li>Storage: 120 GB SSD</li>
+                    <li>DirectX: Version 12</li>
+                    <li>Internet: Broadband (for updates)</li>
+                </ul>
+            </div>
+            <div class="spec-card">
+                <h3>🔥 RECOMMENDED SPECS</h3>
+                <ul class="requirements">
+                    <li>OS: Windows 11 64-bit</li>
+                    <li>CPU: Intel Core i7-9700K / AMD Ryzen 7 3700X</li>
+                    <li>RAM: 16 GB</li>
+                    <li>GPU: NVIDIA RTX 2060 (8GB) / AMD Radeon RX 5700 XT (8GB)</li>
+                    <li>Storage: 180 GB NVMe SSD</li>
+                    <li>DirectX: Version 12</li>
+                    <li>Internet: Broadband (for multiplayer)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Access</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#download">Download Versions</a></li>
+                    <li><a href="#features">Game Features</a></li>
+                    <li><a href="#gallery">Screenshot Gallery</a></li>
+                    <li><a href="#specs">System Requirements</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Installation Guide</a></li>
+                    <li><a href="#">Troubleshooting</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Crack Instructions</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="#">Discord Server</a></li>
+                    <li><a href="#">Reddit Community</a></li>
+                    <li><a href="#">Mod Database</a></li>
+                    <li><a href="#">Speedrun Leaderboards</a></li>
+                    <li><a href="#">Patch Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Strategy Guides</a></li>
+                    <li><a href="#">Achievement List</a></li>
+                    <li><a href="#">Weapon Stats</a></li>
+                    <li><a href="#">Easter Eggs</a></li>
+                    <li><a href="#">Lore & Story</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" title="Discord">💬</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="YouTube">📺</a>
+            <a href="#" title="Reddit">🔴</a>
+            <a href="#" title="Twitch">🎮</a>
+        </div>
+        
+        <div class="footer-bottom">
+            <p style="font-size: 1.2rem; color: #ff006e; font-weight: bold;">© 2025 DOOM ETERNAL PC EDITION</p>
+            <p style="font-size: 0.9rem; margin-top: 1rem;">⚡ RIP AND TEAR UNTIL IT IS DONE ⚡</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #ff8500;">
+                [ HELL AWAITS // SLAYER READY // CONNECTION ESTABLISHED ]
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Download Button Handler
+        function initiateDownload(edition) {
+            const button = event.target;
+            button.textContent = '⚡ INITIALIZING...';
+            button.style.background = 'linear-gradient(135deg, #ff8500, #ff006e)';
+            
+            setTimeout(() => {
+                button.textContent = '🔥 CONNECTING TO HELL...';
+                button.style.background = 'linear-gradient(135deg, #8b0000, #ff0000)';
+            }, 600);
+            
+            setTimeout(() => {
+                button.textContent = '💀 DOWNLOAD STARTED';
+                button.style.background = 'linear-gradient(135deg, #00ff00, #008000)';
+                
+                alert(`${edition} Edition download initiated!\n\n⚡ SLAYER STATUS: ACTIVE\n🔥 DEMONS: WAITING\n💀 RIP AND TEAR: ENABLED\n\nNote: This is a demonstration site.\nNo actual download will occur.`);
+                
+                setTimeout(() => {
+                    button.textContent = 'DOWNLOAD NOW';
+                    button.style.background = 'linear-gradient(135deg, #ff006e, #8b0000)';
+                }, 2500);
+            }, 1200);
+        }
+
+        // Hellfire Particles
+        function createHellfire() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = Math.random() * 4 + 2 + 'px';
+            particle.style.background = Math.random() > 0.5 ? '#ff006e' : '#ff8500';
+            particle.style.borderRadius = '50%';
+            particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px ${Math.random() > 0.5 ? '#ff006e' : '#ff8500'}`;
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.bottom = '-10px';
+            particle.style.opacity = Math.random() * 0.5 + 0.3;
+            particle.style.zIndex = '0';
+            particle.style.pointerEvents = 'none';
+            
+            document.getElementById('fireParticles').appendChild(particle);
+            
+            const duration = Math.random() * 3 + 2;
+            const drift = (Math.random() - 0.5) * 100;
+            
+            particle.animate([
+                { 
+                    transform: 'translateY(0) translateX(0) scale(1)',
+                    opacity: particle.style.opacity
+                },
+                { 
+                    transform: `translateY(-${window.innerHeight}px) translateX(${drift}px) scale(0.5)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-out'
+            }).onfinish = () => particle.remove();
+        }
+
+        // Generate hellfire particles
+        setInterval(createHellfire, 150);
+
+        // Cursor Glow Effect
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX - 10 + 'px';
+            cursorGlow.style.top = e.clientY - 10 + 'px';
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Screen Shake on Download Button Hover
+        const downloadButtons = document.querySelectorAll('.download-btn');
+        downloadButtons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                document.body.style.animation = 'shake 0.3s';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 300);
+            });
+        });
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-2px); }
+                75% { transform: translateX(2px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Blood splatter effect on click (visual feedback)
+        document.addEventListener('click', (e) => {
+            const splatter = document.createElement('div');
+            splatter.style.position = 'fixed';
+            splatter.style.left = e.clientX + 'px';
+            splatter.style.top = e.clientY + 'px';
+            splatter.style.width = '5px';
+            splatter.style.height = '5px';
+            splatter.style.background = '#ff006e';
+            splatter.style.borderRadius = '50%';
+            splatter.style.pointerEvents = 'none';
+            splatter.style.zIndex = '9999';
+            document.body.appendChild(splatter);
+            
+            splatter.animate([
+                { transform: 'scale(1)', opacity: 1 },
+                { transform: 'scale(20)', opacity: 0 }
+            ], {
+                duration: 500,
+                easing: 'ease-out'
+            }).onfinish = () => splatter.remove();
+        });
+    </script>
+</body>
+</html>

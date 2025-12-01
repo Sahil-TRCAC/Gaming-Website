@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooter Nexus | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-red: #ff003c;
+            --neon-orange: #ff5e00;
+            --neon-yellow: #ffcc00;
+            --neon-blue: #00a2ff;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+            --text-color: #f0f0f0;
+            --accent-color: #ff003c;
+            --grid-color: rgba(255, 0, 60, 0.1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-red);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--neon-red);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-red);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+            color: var(--darker-bg);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .nav-cta:hover {
+            box-shadow: 0 0 15px var(--neon-red);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neon-red);
+        }
+
+        /* Hero Carousel */
+        .hero-carousel {
+            margin-top: 80px;
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.8s ease;
+        }
+
+        .carousel-slide {
+            width: 25%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide:nth-child(1) {
+            background: linear-gradient(rgba(10, 10, 15, 0.85), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        }
+
+        .carousel-slide:nth-child(2) {
+            background: linear-gradient(rgba(10, 10, 15, 0.85), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        }
+
+        .carousel-slide:nth-child(3) {
+            background: linear-gradient(rgba(10, 10, 15, 0.85), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80') no-repeat center center/cover;
+        }
+
+        .carousel-slide:nth-child(4) {
+            background: linear-gradient(rgba(10, 10, 15, 0.85), rgba(5, 5, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=2064&q=80') no-repeat center center/cover;
+        }
+
+        .carousel-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .carousel-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.7);
+            line-height: 1.1;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .carousel-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+
+        .carousel-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+            color: var(--darker-bg);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.7);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .carousel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.9);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+            border-radius: 3px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: rgba(20, 20, 25, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange));
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3);
+            border-color: var(--neon-red);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-red);
+        }
+
+        .category-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--neon-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .category-card p {
+            color: #d0d0d0;
+            margin-bottom: 20px;
+        }
+
+        .category-btn {
+            display: inline-block;
+            background: rgba(255, 0, 60, 0.2);
+            color: var(--neon-red);
+            padding: 10px 25px;
+            border: 1px solid var(--neon-red);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .category-btn:hover {
+            background: var(--neon-red);
+            color: var(--darker-bg);
+            box-shadow: 0 0 15px var(--neon-red);
+        }
+
+        /* Featured Games */
+        .featured-games {
+            padding: 80px 5%;
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(255, 0, 60, 0.3);
+            border-bottom: 1px solid rgba(255, 0, 60, 0.3);
+        }
+
+        .games-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: rgba(30, 30, 35, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3);
+            border-color: var(--neon-red);
+        }
+
+        .game-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .game-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .game-img img {
+            transform: scale(1.1);
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .game-info p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .game-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-yellow);
+        }
+
+        .game-btn {
+            background: rgba(255, 0, 60, 0.2);
+            color: var(--neon-red);
+            padding: 8px 15px;
+            border: 1px solid var(--neon-red);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .game-btn:hover {
+            background: var(--neon-red);
+            color: var(--darker-bg);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 50px 5% 20px;
+            border-top: 1px solid var(--neon-red);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--neon-red);
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--neon-red);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-red);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 60, 0.1);
+            border-radius: 50%;
+            color: var(--neon-red);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-red);
+            color: var(--darker-bg);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-red);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(31px, 9999px, 15px, 0);
+            }
+            5% {
+                clip: rect(32px, 9999px, 28px, 0);
+            }
+            10% {
+                clip: rect(5px, 9999px, 35px, 0);
+            }
+            15% {
+                clip: rect(25px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            25% {
+                clip: rect(19px, 9999px, 11px, 0);
+            }
+            30% {
+                clip: rect(42px, 9999px, 22px, 0);
+            }
+            35% {
+                clip: rect(33px, 9999px, 44px, 0);
+            }
+            40% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            45% {
+                clip: rect(16px, 9999px, 22px, 0);
+            }
+            50% {
+                clip: rect(42px, 9999px, 38px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 22px, 0);
+            }
+            60% {
+                clip: rect(42px, 9999px, 15px, 0);
+            }
+            65% {
+                clip: rect(17px, 9999px, 35px, 0);
+            }
+            70% {
+                clip: rect(42px, 9999px, 17px, 0);
+            }
+            75% {
+                clip: rect(9px, 9999px, 38px, 0);
+            }
+            80% {
+                clip: rect(42px, 9999px, 8px, 0);
+            }
+            85% {
+                clip: rect(42px, 9999px, 32px, 0);
+            }
+            90% {
+                clip: rect(42px, 9999px, 25px, 0);
+            }
+            95% {
+                clip: rect(15px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(42px, 9999px, 42px, 0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .carousel-content h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .carousel-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .carousel-content p {
+                font-size: 1rem;
+            }
+            
+            .carousel-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .category-card, .game-card {
+                padding: 20px;
+            }
+            
+            .categories-grid, .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-text">SHOOTER NEXUS</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#" class="nav-cta">Join Now</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero-carousel">
+        <div class="carousel-slides">
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h2 class="glitch" data-text="INTENSE COMBAT">INTENSE COMBAT</h2>
+                    <p>Experience heart-pounding action with the most advanced shooter games available.</p>
+                    <a href="#" class="carousel-btn">Explore Games</a>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h2 class="glitch" data-text="MULTIPLAYER MAYHEM">MULTIPLAYER MAYHEM</h2>
+                    <p>Join millions of players in competitive online battles and cooperative missions.</p>
+                    <a href="#" class="carousel-btn">Join the Fight</a>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h2 class="glitch" data-text="TACTICAL WARFARE">TACTICAL WARFARE</h2>
+                    <p>Master strategic combat with realistic weapons, tactics, and team coordination.</p>
+                    <a href="#" class="carousel-btn">Learn Strategy</a>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h2 class="glitch" data-text="FUTURISTIC BATTLES">FUTURISTIC BATTLES</h2>
+                    <p>Engage in sci-fi warfare with advanced weapons, vehicles, and technology.</p>
+                    <a href="#" class="carousel-btn">Enter the Future</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-nav">
+            <div class="carousel-dot active" data-slide="0"></div>
+            <div class="carousel-dot" data-slide="1"></div>
+            <div class="carousel-dot" data-slide="2"></div>
+            <div class="carousel-dot" data-slide="3"></div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2 class="section-title">Shooter Game Categories</h2>
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-crosshairs"></i>
+                </div>
+                <h3>First-Person</h3>
+                <p>Immerse yourself in realistic combat from a first-person perspective.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>Tactical</h3>
+                <p>Strategic gameplay focusing on teamwork, planning, and realistic combat.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Sci-Fi</h3>
+                <p>Futuristic warfare with advanced weapons, aliens, and space battles.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-skull-crossbones"></i>
+                </div>
+                <h3>Battle Royale</h3>
+                <p>Last-player-standing matches in massive, shrinking arenas.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Historical</h3>
+                <p>Authentic combat experiences based on real-world conflicts and eras.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Cooperative</h3>
+                <p>Team up with friends to complete missions and survive against overwhelming odds.</p>
+                <a href="#" class="category-btn">Explore</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section class="featured-games">
+        <h2 class="section-title">Featured Shooter Games</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <a href="callofduty.html">
+
+                    <div class="game-img">
+                        <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Call of Duty">
+                </div>
+                <div class="game-info">
+                    <h3>Call of Duty</h3>
+                    <p>Experience the ultimate modern warfare in this iconic first-person shooter series.</p>
+                    <div class="game-price">
+                        
+                        <a href="#" class="game-btn">Download</a>
+                    </div>
+                </div>
+            </div>
+        </a>
+            <div class="game-card">
+                <div class="game-img">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Battlefield">
+                </div>
+                <div class="game-info">
+                    <h3>Battlefield</h3>
+                    <p>Massive-scale warfare with destructible environments and vehicle combat.</p>
+                    <div class="game-price">
+                        
+                        <a href="#" class="game-btn">Download</a>
+                    </div>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="DOOM">
+                </div>
+                <div class="game-info">
+                    <a href="doometernal.html">
+
+                        <h3>DOOM Eternal</h3>
+                        <p>Rip and tear through demons in this fast-paced, brutal first-person shooter.</p>
+                        <div class="game-price">
+                            
+                            <a href="#" class="game-btn">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="game-card">
+                <div class="game-img">
+                    <a href="apexlegends.html">
+
+                        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=2064&q=80" alt="Apex Legends">
+                    </div>
+                    <div class="game-info">
+                        <h3>Apex Legends</h3>
+                        <p>Free-to-play battle royale with unique characters and abilities.</p>
+                        <div class="game-price">
+                            
+                            <a href="#" class="game-btn">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Shooter Nexus</h3>
+                <p>Your ultimate destination for the best shooter gaming experiences. Discover, download, and dominate in intense combat scenarios.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Game Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#">First-Person Shooters</a></li>
+                    <li><a href="#">Tactical Shooters</a></li>
+                    <li><a href="#">Battle Royale</a></li>
+                    <li><a href="#">Sci-Fi Shooters</a></li>
+                    <li><a href="#">Cooperative Games</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Forums</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">System Requirements</a></li>
+                    <li><a href="#">Download Help</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">EULA</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Shooter Nexus. All rights reserved. All trademarks are property of their respective owners.</p>
+       
